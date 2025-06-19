@@ -48,9 +48,9 @@ type RowColorObject = {
 
 export default function Home() {
   const inputRefs: Array<React.RefObject<HTMLInputElement | null>> = [];
-  Array.from({ length: 6 }).forEach((_) =>
-    inputRefs.push(useRef<HTMLInputElement>(null))
-  );
+  for (let i = 0; i < 6; i++) {
+    inputRefs.push(useRef<HTMLInputElement>(null));
+  }
 
   const { setTheme } = useTheme();
   const [wordLength, setWordLength] = useState<number>(5);
