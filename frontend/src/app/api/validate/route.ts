@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -7,11 +7,5 @@ export async function GET(request: NextRequest) {
     `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
   );
 
-  return new Response(
-    JSON.stringify({ ok: validateWordResponse.status === 200 }),
-    {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    }
-  );
+  return NextResponse.json({ ok: validateWordResponse.status === 200 });
 }

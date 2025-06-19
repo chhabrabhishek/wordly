@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -8,8 +8,5 @@ export async function GET(request: NextRequest) {
   );
   const randomWord = await randomWordResponse.json();
 
-  return new Response(JSON.stringify(randomWord), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
+  return NextResponse.json(randomWord);
 }
