@@ -27,7 +27,7 @@ import { Label } from "@/components/atoms/label";
 import { REGEXP_ONLY_CHARS } from "input-otp";
 import { Moon, Settings, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Ref, RefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 type InputObject = {
