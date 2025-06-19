@@ -47,10 +47,7 @@ type RowColorObject = {
 };
 
 export default function Home() {
-  const inputRefs: Array<React.RefObject<HTMLInputElement | null>> = [];
-  for (let i = 0; i < 6; i++) {
-    inputRefs.push(useRef<HTMLInputElement>(null));
-  }
+  const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
 
   const { setTheme } = useTheme();
   const [wordLength, setWordLength] = useState<number>(5);
@@ -73,7 +70,7 @@ export default function Home() {
     setPresentColorObject({});
     setActiveRow(0);
     setTimeout(() => {
-      inputRefs[0].current?.focus();
+      inputRefs.current[0]?.focus();
     }, 0);
     const randomWordResponse = await fetch(`/api/word?length=${length}`);
     const randomWordJson = await randomWordResponse.json();
@@ -189,7 +186,7 @@ export default function Home() {
       if (activeRow < 5) {
         setActiveRow((prev) => prev + 1);
         setTimeout(() => {
-          inputRefs[activeRow + 1].current?.focus();
+          inputRefs.current[activeRow + 1]?.focus();
         }, 100);
       } else {
         toast("game over", {
@@ -206,7 +203,7 @@ export default function Home() {
 
   function handleBlur(index: number) {
     setTimeout(() => {
-      inputRefs[index].current?.focus();
+      inputRefs.current[index]?.focus();
     }, 10);
   }
 
@@ -282,7 +279,9 @@ export default function Home() {
         {Array.from({ length: 6 }).map((_, rowIndex) => (
           <InputOTP
             key={rowIndex}
-            ref={inputRefs[rowIndex]}
+            ref={(element) => {
+              inputRefs.current[rowIndex] = element;
+            }}
             maxLength={wordToGuess.length}
             pattern={REGEXP_ONLY_CHARS}
             autoFocus={rowIndex === activeRow}
