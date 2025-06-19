@@ -27,7 +27,7 @@ import { Label } from "@/components/atoms/label";
 import { REGEXP_ONLY_CHARS } from "input-otp";
 import { Moon, Settings, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useRef, useState } from "react";
+import { Ref, RefObject, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 type InputObject = {
@@ -47,8 +47,9 @@ type RowColorObject = {
 };
 
 export default function Home() {
-  const inputRefs = Array.from({ length: 6 }, () =>
-    useRef<HTMLInputElement>(null)
+  const inputRefs: Array<React.RefObject<HTMLInputElement | null>> = [];
+  Array.from({ length: 6 }).forEach((_) =>
+    inputRefs.push(useRef<HTMLInputElement>(null))
   );
 
   const { setTheme } = useTheme();
